@@ -18,6 +18,8 @@ class PJenkins(object):
         self.__server = jenkins.Jenkins(**self.__config)
         # 获取到jenkins上的项目名
         self.job_name = self.conf.get_section_jenkins('job_name')
+        # jenkins访问地址
+        self.jenkins_base_url = self.__config["url"]
 
     def get_job_number(self):
         """读取jenkins job构建号"""
@@ -47,10 +49,10 @@ class PJenkins(object):
         return report
 
     def report_success_or_fail(self):
-        """统计测试报告用例成功数、失败数、跳过数以及成功率、失败率"""
+        """提取测试报告链接"""
         report_info = self.get_build_report()
+        job_number = self.get_job_number()
         # ！！！！！提取测试报告链接
-        console_log = self.get_console_log()
-        report_url = re.search(r'http://127.0.0.1/(.*?)', console_log).group(0)
+        report_url = f"{self.jenkins_base_url}/job/{self.job_name}/{job_number}/allure/"
 
         return report_url
