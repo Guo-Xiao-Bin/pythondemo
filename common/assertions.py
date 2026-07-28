@@ -154,7 +154,7 @@ class Assertions:
 
 
 if __name__ == '__main__':
-    data = get_testcase_yaml(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'testcase\Login\login.yaml'))[0]
+    data = get_testcase_yaml(os.path.join(os.path.dirname(os.path.dirname(__file__)), r'testcase\Login\login.yaml'))[0]
     value = data['testCase']['validation']
     response = {"error_code": None, "msg": "登录成功", "msg_code": 200, "orgId": "6140913758128971280",
                 "token": "2aE2bbDD66D35f5EEda77CE7abe70", "userId": "9337151637697210487"}
