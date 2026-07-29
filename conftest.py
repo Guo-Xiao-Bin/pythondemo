@@ -6,6 +6,7 @@ from common.readyaml import ReadYamlData
 from common.recordlog import logs
 from common.dingRobot import send_dingding_msg
 from common.operJenkins import PJenkins
+
 read = ReadYamlData()
 session_start_time = 0.0
 pjenkins = PJenkins()
