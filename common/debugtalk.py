@@ -40,7 +40,7 @@ class DebugTalk:
             data = data_value[randoms]
         return data
 
-    def get_extract_data(self, node_name, sec_node_name) -> str:
+    def get_extract_data(self, node_name, sec_node_name=None) -> str:
         """
         获取extract.yaml数据，首先判断randoms是否为数字类型，如果不是就获取下一个node节点的数据
         处理
