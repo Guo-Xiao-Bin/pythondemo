@@ -18,6 +18,7 @@
       extract:
 #        token: '"token":"(.*?)"'
          token: $.token
+         cookies: cookies
     - case_name: 用户名和密码错误校验
       data:
         user_name: test01

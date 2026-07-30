@@ -1,0 +1,19 @@
+- baseInfo:
+    api_name: 总调集团接单
+    url: /api/order/pc/order/master/receive
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    cookies: ${get_extract_data(cookies)}
+  testCase:
+    - case_name: 总调集团接单成功
+      json:
+        orderId: ${get_extract_data(orderNo)}
+        times: ${get_stamp_time()}
+      validation:
+        - status_code: 200
+        - eq: { "message":"操作成功" }
+        - contains: {"error_code": "20000"}
+        - eq: {"data": true}
+
+

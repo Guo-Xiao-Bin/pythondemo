@@ -107,6 +107,8 @@ class RequestBase:
             allure.attach(header_str, f"请求头：{header_str}", allure.attachment_type.TEXT)
             try:
                 cookies = self.replace_load(case_info['baseInfo']['cookies'])
+                if isinstance(cookies, str):
+                    cookies = json.loads(cookies.replace("'","\""))
             except:
                 pass
 
@@ -131,7 +133,11 @@ class RequestBase:
                                      **tc)
             allure.attach(res.text, "接口的响应信息", allure.attachment_type.TEXT)
             allure.attach(str(res.status_code), f"接口状态码：{res.status_code}", allure.attachment_type.TEXT)
-
+            if res.cookies:
+                cookie_dict = dict(res.cookies)
+                cookie = dict()
+                cookie["cookies"]=cookie_dict
+                self.read.write_yaml_data(cookie)
             res_text = res.text
             res_json = res.json()
             if extract is not None:
