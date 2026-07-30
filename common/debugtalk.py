@@ -6,7 +6,7 @@ import random
 import re
 import time
 from calendar import calendar
-from datetime import datetime
+import datetime
 from hashlib import sha1
 
 from altair import Day
@@ -36,6 +36,7 @@ class DebugTalk:
                 randoms: self.get_extract_order_data(data, randoms),
                 0: random.choice(data),
                 -1: ','.join(data),
+                -2: ','.join(data).split(',')
             }
             data = data_value[randoms]
         return data
@@ -209,3 +210,9 @@ class DebugTalk:
         conf = OperationConfig()
         url = conf.get_section_for_data('api_envi', host)
         return url
+
+
+if __name__ == '__main__':
+    debugtalk = DebugTalk()
+    goodsId = debugtalk.get_extract_data("goodsId", -1)
+    print(goodsId)

@@ -12,6 +12,7 @@ from common.sendrequest import SendRequest
 from conf.operationConfig import OperationConfig
 from common.assertions import Assertions
 
+
 class RequestBase:
 
     def __init__(self):
@@ -24,6 +25,7 @@ class RequestBase:
             yaml表达式解析替换工具，数据替换解析(为了实现在yaml文件中能调用python的方法)
             提取数据：${get_extract_data(token)}，${方法名(参数)}
         """
+        print(data)
         str_data = data
         # isinstance(data,str)判断data是不是字符串
         if not isinstance(data, str):
@@ -32,11 +34,15 @@ class RequestBase:
             str_data = json.dumps(data, ensure_ascii=False)
         # 循环处理所有${}占位符
         for i in range(str_data.count('${')):  # str_data.count('${')统计字符串有多少个${占位符
+            print(i)
             start_index = str_data.index("$")
+            while start_index + 1 < len(str_data) and str_data[start_index + 1] != "{":
+                start_index = str_data.index("$",start_index+1)
             # 从$开始往后找对应的}
             end_index = str_data.index("}", start_index)
             # yaml文件的参数，方法名（参数）
             ref_all_params = str_data[start_index:end_index + 1]
+            print(ref_all_params)
             # 输出函数名称，${get_extract_data(token)}
             func_name = ref_all_params[2:ref_all_params.index("(")]
             print("取出的函数名称：", func_name)

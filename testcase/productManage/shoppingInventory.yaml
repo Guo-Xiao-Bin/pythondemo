@@ -1,0 +1,27 @@
+- baseInfo:
+    api_name: 校验商品库存
+    url: /coupApply/cms/shoppingInventory
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+  testCase:
+#    - case_name: 校验商品库存正常状态
+#      json:
+#        goodsId: 18382788819
+#        count: 6
+#        timeStamp: ${get_stamp_time()}
+#      validation:
+#        - status_code: 200
+#        - eq: { "status":"0" }
+#        - contains: {"error_code": "0000"}
+    - case_name: 校验商品库存不足状态
+      json:
+        {
+          "goodsId": "${get_extract_data_list(goodsId,1)}",
+          "count": 224,
+          "timeStamp": "${get_stamp_time()}"
+        }
+      validation:
+        - status_code: 200
+        - eq: { "status": "1" }
+        - contains: { "error_code": "0000" }

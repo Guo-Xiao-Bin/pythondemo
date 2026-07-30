@@ -1,0 +1,29 @@
+- baseInfo:
+    api_name: 商品提交订单
+    url: /coupApply/cms/placeAnOrder
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+  testCase:
+    - case_name: 商品正常提交订单
+      json:
+        goods_id: ${get_extract_data_list(goodsId,0)}
+        number: 2
+        propertyChildIds: '2:9'
+        inviter_id: '127839112'
+        price: '128'
+        freight_insurance: '0.00'
+        discount_code: '002399'
+        consignee_info: {
+                          "name": "张三",
+                          "phone": '1380000000',
+                          "address": "北京市海淀区西三环北路74号院4栋3单元1008"
+        }
+      validation:
+        - status_code: 200
+        - eq: { "message":"提交订单成功" }
+      extract:
+        orderNumber: $.orderNumber
+        userId: $.userId
+
+

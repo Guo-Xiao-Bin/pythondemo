@@ -1,0 +1,18 @@
+- baseInfo:
+    api_name: 订单支付
+    url: /coupApply/cms/orderPay
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+  testCase:
+    - case_name: 正常订单支付
+      json:
+        orderNumber: ${get_extract_data(orderNumber)}
+        userId: ${get_extract_data(userId)}
+        timeStamp: ${get_stamp_time()}
+      validation:
+        - status_code: 200
+        - eq: { "message":"订单支付成功" }
+        - contains: {"error_code": "0000"}
+
+
